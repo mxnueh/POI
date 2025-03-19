@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root{
+  --base-clr: #11121a;
+  --line-clr: #42434a;
+  --hover-clr: #D1323936;
+  --text-clr: #e6e6ef;
+  --accent-clr: #D13239;
+  --secondary-text-clr: #b0b3c1;
+  --sidebar: #ffffff;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.title {
+    font-size: 18px;
+    margin: 10px 0px;
+    color: #333;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin: 10px 0px 30px 0px;
+    color: #D13239;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.input-group i {
+    margin-right: 10px;
+    color: #888;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 12px;
+    padding-left: 15px;
+}
+
+.btn-login, .btn-id {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 2px;
+}
+
+
+.btn-login {
+    background-color: #D13239;
+    color: #fff;
+}
+
+.btn-login:hover {
+    background-color: #98292f;
+}
+
+.btn-id {
+    background-color: #D13239;
+    color: #fff;
+}
+
+.btn-id:hover {
+    background-color: #98292f;
+}
+
+.divider {  
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.divider hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.divider span {
+    padding: 0 10px;
+    color: #888;
+}
