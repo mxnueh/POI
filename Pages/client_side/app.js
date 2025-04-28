@@ -26,8 +26,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Asignar evento de clic al botón de toggle
   toggleButton.addEventListener('click', toggleSidebar)
 
-  // Función para cerrar todos los submenús (definir según necesidad)
-  function closeAllSubMenus() {
-    // Lógica para cerrar submenús si aplica
-  }
 })
+

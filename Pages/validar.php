@@ -1,42 +1,50 @@
 <?php
 session_start();
 
-if(isset($_POST['submit']) && isset($_POST['usuario']) && isset($_POST['contraseña'])) {
+if (isset($_POST['submit']) && isset($_POST['usuario']) && isset($_POST['contraseña'])) {
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
-    $_SESSION['usuario'] = $usuario;
-
-    $conexion = mysqli_connect("localhost", "root", "", "poi");
+    
+    $conexion = mysqli_connect("localhost", "root", "", "poi_db");
 
     if (!$conexion) {
-        header("location: Login.php?error=conexion");
+        header("Location: Login.php?error=conexion");
         exit();
     }
 
-    $consulta = "SELECT * FROM usuarios WHERE usuario='$usuario' AND contraseña='$contraseña'";
-    $resultado = mysqli_query($conexion, $consulta);
+    // Consulta segura con prepared statements
+    $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuarios = ? AND contraseñas = ?");
+    $stmt->bind_param("ss", $usuario, $contraseña); // "ss" = string, string
 
-    if ($resultado && mysqli_num_rows($resultado) > 0) {
-        $filas = mysqli_fetch_array($resultado);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
-        if ($filas['id_cargo'] == 1) { // administrador
-            header("location: admin_side/profile.html");
+    if ($resultado && $resultado->num_rows > 0) {
+        $filas = $resultado->fetch_assoc();
+
+        $_SESSION['usuario'] = $usuario;
+        $_SESSION['id_usuario'] = $filas['ID'];
+        $_SESSION['id_cargo'] = $filas['id_cargos'];
+
+        if ($filas['id_cargos'] == 1) {
+            header("Location: admin_side/profile.html");
             exit();
-        } else if ($filas['id_cargo'] == 2) { // cliente
-            header("location: client_side/profile.php");
+        } elseif ($filas['id_cargos'] == 2) {
+            header("Location: client_side/profile.php");
             exit();
         } else {
-            header("location: Login.php?error=cargo");
+            header("Location: Login.php?error=cargo");
             exit();
         }
-        mysqli_free_result($resultado);
     } else {
-        header("location: Login.php?error=credenciales");
+        header("Location: Login.php?error=credenciales");
         exit();
     }
-    mysqli_close($conexion);
+
+    $stmt->close();
+    $conexion->close();
 } else {
-    header("location: Login.php");
+    header("Location: Login.php");
     exit();
 }
 ?>
