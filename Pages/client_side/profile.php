@@ -2,24 +2,27 @@
 require_once('../db.php');
 session_start();
 
-// Verificar si el usuario está logueado
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 if(!isset($_SESSION['id_usuario'])) {
     header("location: ../Login.php");
     exit();
 }
 
-// Obtener datos del usuario que inició sesión
 $id_usuario = $_SESSION['id_usuario'];
 $id_cargo = $_SESSION['id_cargo'];
 
-// Consulta para obtener información del cargo
 $query1 = "SELECT * FROM cargo WHERE id = '$id_cargo'";
 $result1 = mysqli_query($conexion, $query1);
 
-// Consulta para obtener información del usuario
 $query2 = "SELECT * FROM usuarios WHERE ID = '$id_usuario'";
 $result2 = mysqli_query($conexion, $query2);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -417,18 +420,28 @@ $result2 = mysqli_query($conexion, $query2);
         display: none;
         position: absolute;
         background-color: #fff;
-        z-index: 1000;
+        z-index: 1;
         box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
         padding: 10px;
-        margin-top:100px;
+        margin-top: 120px;
         border-radius: 5px;
         flex-direction: column;
+        margin-left: 46px;
+        width: 63%;
       }
 
       .popup.show {
         display: flex;
       }
 
+      .popup a{
+        text-decoration: none;
+        color:black;
+      }
+
+      .popup a:hover{
+        color:#D13239;
+      }
 
     </style>
   <nav id="sidebar">
@@ -494,26 +507,51 @@ $result2 = mysqli_query($conexion, $query2);
           </div>
           <div class="separator"></div>
 
-          <button onclick="openPopup()"id="showpopup" class="profile-content">
+          <button id="showpopup" class="profile-content">
             <img src="profileVector.jpg" alt="User"> 
             <div class="info">
-              <span><?php $data= mysqli_fetch_assoc($result2); echo strtoupper($data['usuarios']);?></span>
-              <span class="cargo"><?php $data= mysqli_fetch_assoc($result1); echo strtoupper($data['descripcion']);?></span>
+              <span><?php $data = mysqli_fetch_assoc($result2); echo strtoupper($data['usuarios']); ?></span>
+              <span class="cargo"><?php $data = mysqli_fetch_assoc($result1); echo strtoupper($data['descripcion']); ?></span>
             </div>
           </button>
 
           <div class="popup" id="myPopup">
-            <a href="#">Ver Perfil</a>
-            <a href="#">Configuración</a>
-            <a href="#">Cerrar Sesión</a>
+            <a href="profile.php">Ver Perfil</a>
+            <a href="Logout.php">Cerrar Sesión</a>
           </div>
-          
+
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const popupNode = document.querySelector("#myPopup");
+              const openBtn = document.querySelector("#showpopup");
+
+              function openPopup() {
+                popupNode.classList.add("show");
+              }
+
+              function closePopup() {
+                popupNode.classList.remove("show");
+              }
+
+              openBtn.addEventListener("click", (e) => {
+                e.stopPropagation(); // evitar que se cierre inmediatamente
+                openPopup();
+              });
+
+              // Cierra al hacer clic fuera del popup
+              document.addEventListener("click", (e) => {
+                if (!popupNode.contains(e.target) && e.target !== openBtn) {
+                  closePopup();
+                }
+              });
+            });
+          </script>
         </div>
       </div>
     
 
   <div class="header">
-      PERFIL
+      PERFIL <a href="ver_notificaciones.php">notificaciones</a>
   </div>
 
   <div class="grid-container">
@@ -521,21 +559,21 @@ $result2 = mysqli_query($conexion, $query2);
         <nav class="grid-sidebar">
           <ul>
             <li onclick="window.location.href='profile.php';">
-              <a href="#">Mi perfil</a>
+              <a href="profile.php">Mi perfil</a>
             </li>
-            <li onclick="window.location.href='profile.php';">
-              <a href="#">Seguridad</a>
+            <li onclick="window.location.href='profile-pages/Seguridad.php';">
+              <a href="profile-pages/Seguridad.php">Seguridad</a>
             </li>
-            <li onclick="window.location.href='profile.php';">
-              <a href="#">Notificaciones</a>
+            <li onclick="window.location.href='profile-pages/Notificaciones.php';">
+              <a href="profile-pages/Notificaciones.php">Notificaciones</a>
             </li >
-            <li onclick="window.location.href='profile.php';">
-              <a href="#">Preferencias</a>
+            <li onclick="window.location.href='profile-pages/Preferencias.php';">
+              <a href="profile-pages/Notificaciones.php">Preferencias</a>
             </li>
           </ul>
         </nav>
         <div>
-          <h1>My Profile</h1>
+          <h1>Mi Perfil</h1>
         </div>
       </div>
   </div>
@@ -546,5 +584,13 @@ $result2 = mysqli_query($conexion, $query2);
     </div>
   </div>-->
   </main>
+  <script>
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+        window.location.reload();
+      }
+    });
+  </script>
+
 </body>
 </html>
