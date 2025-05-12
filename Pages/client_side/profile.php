@@ -148,7 +148,7 @@ $result2 = mysqli_query($conexion, $query2);
         transition: 200ms ease;
       }
       .rotate svg:last-child{
-        rotate: 90deg;
+        rotate: 180deg;
       }
       #sidebar .sub-menu a{
         padding-left: 2em;

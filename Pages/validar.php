@@ -12,9 +12,8 @@ if (isset($_POST['submit']) && isset($_POST['usuario']) && isset($_POST['contras
         exit();
     }
 
-    // Consulta segura con prepared statements
     $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuarios = ? AND contraseñas = ?");
-    $stmt->bind_param("ss", $usuario, $contraseña); // "ss" = string, string
+    $stmt->bind_param("ss", $usuario, $contraseña);
 
     $stmt->execute();
     $resultado = $stmt->get_result();

@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Opcional: registrar el error
                 error_log("Error al enviar notificación: " . $e->getMessage());
             }
-        }
+        } 
         
         if ($error_count == 0) {
             $mensaje_exito = "Notificación enviada a todos los clientes";

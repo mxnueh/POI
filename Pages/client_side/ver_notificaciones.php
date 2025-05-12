@@ -7,7 +7,7 @@ $_SESSION['usuario_id'] = 2; // Reemplaza con un ID válido
 $_SESSION['cargo'] = 'cliente'; // o 'administrador'
 
 
-$usuario_id = $_SESSION['usuario_id'];
+$usuario_id = $_SESSION['usuario_id']; 
 
 // Marcar notificación como leída si se solicita
 if (isset($_GET['marcar_leido']) && is_numeric($_GET['marcar_leido'])) {
