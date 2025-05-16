@@ -3,7 +3,7 @@ require_once('../db.php');
 session_start();
 
 // Verificar si el usuario está logueado
-if(!isset($_SESSION['id_usuario'])) {
+if(!isset($_ SESSION['id_usuario'])) {
     header("location: ../Login.php");
     exit();
 }
