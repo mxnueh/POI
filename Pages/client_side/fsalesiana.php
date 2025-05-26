@@ -20,6 +20,7 @@ $result1 = mysqli_query($conexion, $query1);
 $query2 = "SELECT * FROM usuarios WHERE ID = '$id_usuario'";
 $result2 = mysqli_query($conexion, $query2);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
