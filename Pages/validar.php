@@ -21,7 +21,7 @@ if (isset($_POST['submit']) && isset($_POST['usuario']) && isset($_POST['contras
     if ($resultado && $resultado->num_rows > 0) {
         $filas = $resultado->fetch_assoc();
 
-        $_SESSION['usuario'] = $usuario;
+        $_SESSION['username'] = $usuario;
         $_SESSION['id_usuario'] = $filas['ID'];
         $_SESSION['id_cargo'] = $filas['id_cargos'];
 
@@ -38,7 +38,7 @@ if (isset($_POST['submit']) && isset($_POST['usuario']) && isset($_POST['contras
     } else {
         header("Location: Login.php?error=credenciales");
         exit();
-    }
+    } 
 
     $stmt->close();
     $conexion->close();
@@ -47,3 +47,4 @@ if (isset($_POST['submit']) && isset($_POST['usuario']) && isset($_POST['contras
     exit();
 }
 ?>
+ 

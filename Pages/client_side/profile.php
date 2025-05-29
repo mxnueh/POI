@@ -2,11 +2,6 @@
 require_once('../db.php');
 session_start();
 
-header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
 
 if(!isset($_SESSION['id_usuario'])) {
     header("location: ../Login.php");
@@ -543,7 +538,7 @@ $result2 = mysqli_query($conexion, $query2);
                 if (!popupNode.contains(e.target) && e.target !== openBtn) {
                   closePopup();
                 }
-              });
+              }); 
             });
           </script>
         </div>
@@ -551,7 +546,7 @@ $result2 = mysqli_query($conexion, $query2);
     
 
   <div class="header">
-      PERFIL <a href="ver_notificaciones.php">notificaciones</a>
+      PERFIL<a href="#"> notificaciones</a>
   </div>
 
   <div class="grid-container">
